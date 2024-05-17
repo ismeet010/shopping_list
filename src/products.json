@@ -1,0 +1,29 @@
+[
+  {
+    "id": 23731,
+    "name": "Apple 12",
+    "price": 600,
+    "stockInfo": {
+      "available": true,
+      "quantity": 12
+    }
+  },
+  {
+    "id": 23732,
+    "name": "Apple 14",
+    "price": 800,
+    "stockInfo": {
+      "available": true,
+      "quantity": 12
+    }
+  },
+  {
+    "id": 23733,
+    "name": "Samsumg Galaxy",
+    "price": 750,
+    "stockInfo": {
+      "available": false,
+      "quantity": 12
+    }
+  }
+]
