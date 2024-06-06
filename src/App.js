@@ -7,10 +7,6 @@ export const App = () => {
   const [product, updateProduct] = useState(products);
   const [cart, updateCart] = useState([]);
   const decreaseProdQuantity = (id) => {
-    // const updatedProducts = products.map((item) =>
-    //     item.id === id ? { ...item, stockInfo: { ...item.stockInfo, quantity: item.stockInfo.quantity - 1 } } : item
-    // );
-
     // Update the product state with the updated products array
     updateProduct((prevState) =>
       prevState.map((item) =>
@@ -66,19 +62,42 @@ export const App = () => {
       updateCart([...cart, newItem]);
     }
     // decreaseProdQuantity(id)
+    console.log("updated product", product);
     console.log("Updated Cart", cart);
   };
 
+  const deleteFromCart = (id) => {
+    const existingCartItem = cart.find((item) => item.id === id);
+
+    if (existingCartItem && existingCartItem.quantity > 1) {
+      increaseProdQuantity(id, 1);
+
+      const updatedCart = cart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+      );
+      updateCart(updatedCart);
+    } else if (existingCartItem && existingCartItem.quantity === 1) {
+      increaseProdQuantity(id, 1);
+
+      const updatedCart = cart.filter((item) => item.id !== id);
+      updateCart(updatedCart);
+    }
+
+    console.log("Updated product", product);
+    console.log("Updated Cart", cart);
+  };
+
+
   const removeFromCart = (id) => {
-    const finalCI = cart.filter((item) => item.id == id);
+    const finalCI = cart.filter((item) => item.id === id);
     increaseProdQuantity(id, finalCI[0].quantity);
-    let cartItem = cart.filter((item) => item.id != id);
+    let cartItem = cart.filter((item) => item.id !== id);
     updateCart([...cartItem]);
     console.log("Rem Cart", cart);
   };
   return (
     <div className="flex">
-      <ProductsList data={product} add={addToCart} />
+      <ProductsList data={product} add={addToCart} del={deleteFromCart} cart={cart}/>
       <Cart cartData={cart} remove={removeFromCart} />
       {/* <ol>
         <li>
